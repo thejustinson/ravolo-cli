@@ -335,7 +335,7 @@ const initializeProject = async (): Promise<void> => {
       await installDependencies(projectName);
       await copyTemplateFiles(frameworkChoice, templateDir, targetDir);
       await installPackage(projectName, "arweave");
-      // await installPackage(projectName, "permaweb-deploy");
+      await installPackage(projectName, "permaweb-deploy");
     }
 
     log.success("Project initialized successfully!");
