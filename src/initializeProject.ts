@@ -6,24 +6,12 @@ import path from "path";
 import { fileURLToPath } from "url";
 import { promisify } from "util";
 import ora from "ora";
-import chalk from "chalk";
+import { log } from "./chalkLog.js";
 import { exit } from "process";
 
 const execPromise = promisify(exec);
 
-const primaryColor = chalk.hex("#1E90FF");
-const successColor = chalk.hex("#32CD32");
-const warningColor = chalk.hex("#FFA500");
-const errorColor = chalk.hex("#FF4500");
-const highlightColor = chalk.hex("#FFD700");
 
-const log = {
-  primary: (message: string) => console.log(primaryColor(message)),
-  success: (message: string) => console.log(successColor(message)),
-  warning: (message: string) => console.log(warningColor(message)),
-  error: (message: string) => console.log(errorColor(message)),
-  highlight: (message: string) => console.log(highlightColor(message)),
-};
 
 const removeFiles = async (): Promise<void> => {
   const spinner = ora("Removing existing files...").start();
@@ -236,9 +224,7 @@ const generateWallet = async (projectName: string): Promise<void> => {
       );
       spinner.succeed("New wallet generated and saved to wallet.json");
     } catch (error: any) {
-      spinner.fail(
-        errorColor(`Failed to generate a new wallet: ${error.message}`)
-      );
+      spinner.fail(`Failed to generate a new wallet: ${error.message}`);
       throw error;
     }
   }
